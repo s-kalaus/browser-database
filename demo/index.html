@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>browser-database</title>
+    <script type="text/javascript" src="../dist/browser-database.js"></script>
+</head>
+<body>
+<button onclick="browserDatabase.insert('test', {time: (new Date).getTime()}).then(function (row) { window.lastId = row.id; document.body.innerHTML += '<br /><br />' + JSON.stringify(row); })">Insert row</button>
+</body>
+</html>

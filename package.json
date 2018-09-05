@@ -1,0 +1,55 @@
+{
+  "name": "browser-database",
+  "version": "1.0.0",
+  "description": "Simple client-side database operating with sessionStorage/localStorage",
+  "main": "dist/browser-database.js",
+  "module": "src/class/browser-database.ts",
+  "typings": "dist/class/browser-database.d.ts",
+  "scripts": {
+    "clear": "./node_modules/.bin/rimraf ./dist",
+    "build": "npm run clear && ./node_modules/.bin/webpack --config webpack.config.js",
+    "watch": "npm run clear && ./node_modules/.bin/webpack --watch --config webpack.config.dev.js",
+    "lint": "./node_modules/.bin/tslint src/**/*.ts",
+    "test": "./node_modules/.bin/karma start",
+    "coverage": "./node_modules/.bin/karma start --code-coverage --reporters coverage",
+    "doc": "./node_modules/.bin/typedoc --out documentation/ src/",
+    "publish": "npm run lint && npm run test && npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/s-kalaus/browser-database.git"
+  },
+  "keywords": [
+    "database",
+    "localStorage",
+    "sessionStorage"
+  ],
+  "author": "Sergey Kalaus",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/s-kalaus/browser-database/issues"
+  },
+  "homepage": "https://github.com/s-kalaus/browser-database#readme",
+  "devDependencies": {
+    "@types/jasmine": "latest",
+    "@types/uuid": "latest",
+    "ts-node": "latest",
+    "ts-loader": "latest",
+    "webpack": "latest",
+    "webpack-cli": "latest",
+    "rimraf": "latest",
+    "typescript": "^3.0.3",
+    "tslint": "^5.11.0",
+    "uuid": "^3.3.2",
+    "jasmine-core": "~2.99.1",
+    "jasmine-marbles": "^0.3.1",
+    "karma": "~1.7.1",
+    "karma-cli": "latest",
+    "karma-chrome-launcher": "~2.2.0",
+    "karma-jasmine": "~1.1.1",
+    "karma-typescript": "latest",
+    "karma-spec-reporter": "latest",
+    "karma-coverage": "latest",
+    "typedoc": "latest"
+  }
+}
