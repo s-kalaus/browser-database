@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "Simple client-side database operating with sessionStorage/localStorage",
   "main": "dist/browser-database.js",
-  "module": "src/class/browser-database.ts",
   "typings": "dist/class/browser-database.d.ts",
   "scripts": {
     "clear": "./node_modules/.bin/rimraf ./dist",
