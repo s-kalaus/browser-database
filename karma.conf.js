@@ -24,7 +24,7 @@ module.exports = function (config) {
       '**/!(interface)/!(*spec|*index).ts': ['karma-typescript', 'coverage']
     },
     exclude: [
-      'src/browser-database.ts'
+      'src/*.ts'
     ],
     karmaTypescriptConfig: {
       compilerOptions: {

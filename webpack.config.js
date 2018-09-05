@@ -1,7 +1,10 @@
 const path = require('path');
 
 module.exports = {
-  entry: './src/browser-database.ts',
+  entry: {
+      index: './src/index.ts',
+      'browser-database': './src/browser-database.ts'
+  },
   mode: 'production',
   module: {
     rules: [
@@ -16,7 +19,6 @@ module.exports = {
     extensions: [ '.ts', '.js' ]
   },
   output: {
-    filename: 'browser-database.js',
     path: path.resolve(__dirname, 'dist')
   }
 };

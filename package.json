@@ -2,8 +2,8 @@
   "name": "browser-database",
   "version": "1.0.0",
   "description": "Simple client-side database operating with sessionStorage/localStorage",
-  "main": "dist/browser-database.js",
-  "typings": "dist/class/browser-database.d.ts",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
   "scripts": {
     "clear": "./node_modules/.bin/rimraf ./dist",
     "build": "npm run clear && ./node_modules/.bin/webpack --config webpack.config.js",

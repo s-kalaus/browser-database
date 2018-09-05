@@ -1,3 +1,5 @@
 import {BrowserDatabase} from './class';
 
-export default BrowserDatabase;
+declare var window: any;
+
+window.browserDatabase = new BrowserDatabase(window.BROWSER_DATABASE_OPTIONS || {});
