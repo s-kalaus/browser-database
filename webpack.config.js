@@ -19,6 +19,8 @@ module.exports = {
     extensions: [ '.ts', '.js' ]
   },
   output: {
+    library: 'browser-database',
+    libraryTarget: 'umd',
     path: path.resolve(__dirname, 'dist')
   }
 };
