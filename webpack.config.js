@@ -1,7 +1,7 @@
 const path = require('path');
 
 module.exports = {
-  entry: './src/class/browser-database.ts',
+  entry: './src/browser-database.ts',
   mode: 'production',
   module: {
     rules: [
