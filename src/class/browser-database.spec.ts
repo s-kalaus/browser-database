@@ -53,9 +53,16 @@ describe('BrowserDatabase', () => {
     });
 
     it('should call storage.insert', () => {
-      spyOn(inst.storage, 'insert');
+      spyOn(inst.storage, 'insert').and.callThrough();
       inst.insert('test', {test: 1});
       expect(inst.storage.insert).toHaveBeenCalledWith('test', {test: 1});
+    });
+
+    it('should call notify', () => {
+      spyOn(inst, 'notify').and.callThrough();
+      inst.insert('test', {test: 1}).then(() => {
+        expect(inst.notify).toHaveBeenCalledWith('test', 'insert', {id: jasmine.any(String), test: 1});
+      });
     });
   });
 
@@ -65,9 +72,17 @@ describe('BrowserDatabase', () => {
     });
 
     it('should call storage.update', () => {
-      spyOn(inst.storage, 'update');
+      spyOn(inst.storage, 'update').and.callThrough();
       inst.update('test', 1, {test: 1});
       expect(inst.storage.update).toHaveBeenCalledWith('test', 1, {test: 1});
+    });
+
+    it('should call notify', () => {
+      inst.storage.data = {test: {1: {}}};
+      spyOn(inst, 'notify').and.callThrough();
+      inst.update('test', 1, {test: 1}).then(() => {
+        expect(inst.notify).toHaveBeenCalledWith('test', 'update', {id: 1, test: 1});
+      });
     });
   });
 
@@ -77,9 +92,51 @@ describe('BrowserDatabase', () => {
     });
 
     it('should call storage.remove', () => {
-      spyOn(inst.storage, 'remove');
+      spyOn(inst.storage, 'remove').and.callThrough();
       inst.remove('test', 1);
       expect(inst.storage.remove).toHaveBeenCalledWith('test', 1);
+    });
+
+    it('should call notify', () => {
+      inst.storage.data = {test: {1: {}}};
+      spyOn(inst, 'notify').and.callThrough();
+      inst.remove('test', 1).then(() => {
+        expect(inst.notify).toHaveBeenCalledWith('test', 'remove', {});
+      });
+    });
+  });
+
+  describe('Function: notify', () => {
+    it('should exist', () => {
+      expect(inst.notify).toEqual(jasmine.any(Function));
+    });
+
+    it('should call subscription', () => {
+      const spy = jasmine.createSpy('callback');
+      inst.subscriptions = [spy];
+      inst.notify('test', 'insert', {test: 1});
+      expect(spy).toHaveBeenCalledWith('test', 'insert', {test: 1});
+    });
+
+    it('should return result', () => {
+      inst.subscriptions = [];
+      expect(inst.notify('test', 'insert', {test: 1})).toEqual({test: 1});
+    });
+  });
+
+  describe('Function: subscribe', () => {
+    it('should exist', () => {
+      expect(inst.subscribe).toEqual(jasmine.any(Function));
+    });
+
+    it('should add subscription', () => {
+      inst.subscribe(() => {});
+      expect(inst.subscriptions).toEqual([jasmine.any(Function)]);
+    });
+
+    it('should unsubscribe', () => {
+      inst.subscribe(() => {})();
+      expect(inst.subscriptions).toEqual([]);
     });
   });
 });
