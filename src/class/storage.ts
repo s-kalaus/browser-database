@@ -102,7 +102,7 @@ export class Storage implements IStorage {
     Object.assign(theRow, row);
 
     return this.save()
-      .then(() => this.getById(modelName, theRow.id));
+      .then(() => this.getById(modelName, id));
   }
 
   /*
