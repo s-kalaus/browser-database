@@ -2,8 +2,8 @@ const path = require('path');
 
 module.exports = {
   entry: {
-      index: './src/index.ts',
-      'browser-database': './src/browser-database.ts'
+    index: './src/index.ts',
+    'browser-database': './src/browser-database.ts'
   },
   mode: 'production',
   module: {
@@ -16,7 +16,7 @@ module.exports = {
     ]
   },
   resolve: {
-    extensions: [ '.ts', '.js' ]
+    extensions: ['.ts', '.js']
   },
   output: {
     library: 'browser-database',

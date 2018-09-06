@@ -3,8 +3,8 @@
  */
 export interface IStorageOptions {
 
-    /*
-     * Key of storage
-     */
-    storageKey?: string;
+  /*
+   * Key of storage
+   */
+  storageKey?: string;
 }

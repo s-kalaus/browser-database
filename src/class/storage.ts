@@ -7,151 +7,151 @@ import {IStorageOptions, IStorage} from '../interface';
  */
 export class Storage implements IStorage {
 
-    /*
-     * Local data holder
-     */
-    data: {[modelName: string]: any} = {};
+  /*
+   * Local data holder
+   */
+  data: {[modelName: string]: any} = {};
 
-    /*
-     * Storage key holder
-     */
-    storageKey: string;
+  /*
+   * Storage key holder
+   */
+  storageKey: string;
 
-    /*
-     * Constructor
-     *
-     * @param options Options for storage
-     */
-    constructor(options: IStorageOptions = {}) {
+  /*
+   * Constructor
+   *
+   * @param options Options for storage
+   */
+  constructor(options: IStorageOptions = {}) {
 
-        this.storageKey = options.storageKey || 'browser-database';
+    this.storageKey = options.storageKey || 'browser-database';
 
-        this.load();
+    this.load();
+  }
+
+  /*
+   * Get list of records
+   *
+   * @param modelName Name of model
+   */
+  getAll(modelName: string): Promise<object> {
+
+    this.ensureModel(modelName);
+
+    const ret = Object.keys(this.data[modelName]).map((id) => Object.assign({id}, this.data[modelName][id]));
+
+    return Promise.resolve(ret);
+  }
+
+  /*
+   * Get single record by id
+   *
+   * @param modelName Name of model
+   * @param id ID of primary key
+   */
+  getById(modelName: string, id: number | string): Promise<object> {
+
+    this.ensureModel(modelName);
+
+    const row = this.data[modelName][id];
+
+    if (row === undefined) {
+      return Promise.reject(new Error('Item Not Found'));
     }
 
-    /*
-     * Get list of records
-     *
-     * @param modelName Name of model
-     */
-    getAll(modelName: string): Promise<object> {
+    const ret = Object.assign({id}, this.data[modelName][id]);
 
-        this.ensureModel(modelName);
+    return Promise.resolve(ret);
+  }
 
-        const ret = Object.keys(this.data[modelName]).map((id) => Object.assign({id}, this.data[modelName][id]));
+  /*
+   * Insert new record
+   *
+   * @param modelName Name of model
+   * @param row Row data
+   */
+  insert(modelName: string, row: object): Promise<object> {
 
-        return Promise.resolve(ret);
+    this.ensureModel(modelName);
+
+    const id = uuid.v4();
+
+    this.data[modelName][id] = row;
+
+    return this.save()
+      .then(() => this.getById(modelName, id));
+  }
+
+  /*
+   * Update existing record
+   *
+   * @param modelName Name of model
+   * @param id ID of primary key
+   * @param row Row data
+   */
+  update(modelName: string, id: number | string, row: object): Promise<object> {
+
+    this.ensureModel(modelName);
+
+    const theRow = this.data[modelName][id];
+
+    if (theRow === undefined) {
+      return Promise.reject(new Error('Item Not Found'));
     }
 
-    /*
-     * Get single record by id
-     *
-     * @param modelName Name of model
-     * @param id ID of primary key
-     */
-    getById(modelName: string, id: number | string): Promise<object> {
+    Object.assign(theRow, row);
 
-        this.ensureModel(modelName);
+    return this.save()
+      .then(() => this.getById(modelName, theRow.id));
+  }
 
-        const row = this.data[modelName][id];
+  /*
+   * Remove existing record
+   *
+   * @param modelName Name of model
+   * @param id ID of primary key
+   */
+  remove(modelName: string, id: number | string): Promise<object> {
 
-        if (row === undefined) {
-            return Promise.reject(new Error('Item Not Found'));
-        }
+    this.ensureModel(modelName);
 
-        const ret = Object.assign({id}, this.data[modelName][id]);
+    const theRow = this.data[modelName][id];
 
-        return Promise.resolve(ret);
+    if (theRow === undefined) {
+      return Promise.reject(new Error('Item Not Found'));
     }
 
-    /*
-     * Insert new record
-     *
-     * @param modelName Name of model
-     * @param row Row data
-     */
-    insert(modelName: string, row: object): Promise<object> {
+    delete this.data[modelName][id];
 
-        this.ensureModel(modelName);
+    return this.save()
+      .then(() => Promise.resolve(theRow));
+  }
 
-        const id = uuid.v4();
+  /*
+   * Saves data to storage
+   */
+  save(): Promise<object> {
 
-        this.data[modelName][id] = row;
+    return Promise.resolve(this.data);
+  }
 
-        return this.save()
-            .then(() => this.getById(modelName, id));
+  /*
+   * Loads data from storage
+   */
+  load(): Promise<object> {
+
+    return Promise.resolve(this.data);
+  }
+
+  /*
+   * Checks if model exists and creates it if not
+   *
+   * @param modelName Name of model
+   */
+  private ensureModel(modelName: string): void {
+
+    if (this.data[modelName] === undefined) {
+      this.data[modelName] = {};
     }
-
-    /*
-     * Update existing record
-     *
-     * @param modelName Name of model
-     * @param id ID of primary key
-     * @param row Row data
-     */
-    update(modelName: string, id: number | string, row: object): Promise<object> {
-
-        this.ensureModel(modelName);
-
-        const theRow = this.data[modelName][id];
-
-        if (theRow === undefined) {
-            return Promise.reject(new Error('Item Not Found'));
-        }
-
-        Object.assign(theRow, row);
-
-        return this.save()
-            .then(() => this.getById(modelName, theRow.id));
-    }
-
-    /*
-     * Remove existing record
-     *
-     * @param modelName Name of model
-     * @param id ID of primary key
-     */
-    remove(modelName: string, id: number | string): Promise<object> {
-
-        this.ensureModel(modelName);
-
-        const theRow = this.data[modelName][id];
-
-        if (theRow === undefined) {
-            return Promise.reject(new Error('Item Not Found'));
-        }
-
-        delete this.data[modelName][id];
-
-        return this.save()
-            .then(() => Promise.resolve(theRow));
-    }
-
-    /*
-     * Saves data to storage
-     */
-    save(): Promise<object> {
-
-        return Promise.resolve(this.data);
-    }
-
-    /*
-     * Loads data from storage
-     */
-    load(): Promise<object> {
-
-        return Promise.resolve(this.data);
-    }
-
-    /*
-     * Checks if model exists and creates it if not
-     *
-     * @param modelName Name of model
-     */
-    private ensureModel(modelName: string): void {
-
-        if (this.data[modelName] === undefined) {
-            this.data[modelName] = {};
-        }
-    }
+  }
 }

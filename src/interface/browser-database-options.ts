@@ -3,13 +3,13 @@
  */
 export interface IBrowserDatabaseOptions {
 
-    /*
-     * Type of storage
-     */
-    storageType?: 'localStorage' | 'sessionStorage';
+  /*
+   * Type of storage
+   */
+  storageType?: 'localStorage' | 'sessionStorage';
 
-    /*
-     * Key of storage
-     */
-    storageKey?: string;
+  /*
+   * Key of storage
+   */
+  storageKey?: string;
 }

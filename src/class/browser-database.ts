@@ -6,82 +6,82 @@ import {LocalStorage} from './index';
  */
 export class BrowserDatabase {
 
-    /*
-     * Storage types
-     */
-    storages: {[key: string]: any} = {
-        localStorage: LocalStorage
-    };
+  /*
+   * Storage types
+   */
+  storages: {[key: string]: any} = {
+    localStorage: LocalStorage
+  };
 
-    /*
-     * Storage reference
-     */
-    storage: IStorage;
+  /*
+   * Storage reference
+   */
+  storage: IStorage;
 
-    /*
-     * Constructor
-     *
-     * @param options Options for storage
-     */
-    constructor(options: IBrowserDatabaseOptions = {}) {
+  /*
+   * Constructor
+   *
+   * @param options Options for storage
+   */
+  constructor(options: IBrowserDatabaseOptions = {}) {
 
-        this.storage = new this.storages[options.storageType || 'localStorage']({
-            storageKey: options.storageKey || 'browser-database'
-        });
-    }
+    this.storage = new this.storages[options.storageType || 'localStorage']({
+      storageKey: options.storageKey || 'browser-database'
+    });
+  }
 
-    /*
-     * Get list of records
-     *
-     * @param modelName Name of model
-     */
-    getAll(modelName: string): Promise<object> {
+  /*
+   * Get list of records
+   *
+   * @param modelName Name of model
+   */
+  getAll(modelName: string): Promise<object> {
 
-      return this.storage.getAll(modelName);
-    }
+    return this.storage.getAll(modelName);
+  }
 
-    /*
-     * Get single record by id
-     *
-     * @param modelName Name of model
-     * @param id ID of primary key
-     */
-    getById(modelName: string, id: number | string): Promise<object> {
+  /*
+   * Get single record by id
+   *
+   * @param modelName Name of model
+   * @param id ID of primary key
+   */
+  getById(modelName: string, id: number | string): Promise<object> {
 
-      return this.storage.getById(modelName, id);
-    }
+    return this.storage.getById(modelName, id);
+  }
 
-    /*
-     * Insert new record
-     *
-     * @param modelName Name of model
-     * @param row Row data
-     */
-    insert(modelName: string, row: object): Promise<object> {
+  /*
+   * Insert new record
+   *
+   * @param modelName Name of model
+   * @param row Row data
+   */
+  insert(modelName: string, row: object): Promise<object> {
 
-        return this.storage.insert(modelName, row);
-    }
+    return this.storage.insert(modelName, row);
+  }
 
-    /*
-     * Update existing record
-     *
-     * @param modelName Name of model
-     * @param id ID of primary key
-     * @param row Row data
-     */
-    update(modelName: string, id: number | string, row: object): Promise<object> {
+  /*
+   * Update existing record
+   *
+   * @param modelName Name of model
+   * @param id ID of primary key
+   * @param row Row data
+   */
+  update(modelName: string, id: number | string, row: object): Promise<object> {
 
-        return this.storage.update(modelName, id, row);
-    }
+    return this.storage.update(modelName, id, row);
+  }
 
-    /*
-     * Remove existing record
-     *
-     * @param modelName Name of model
-     * @param id ID of primary key
-     */
-    remove(modelName: string, id: number | string): Promise<object> {
+  /*
+   * Remove existing record
+   *
+   * @param modelName Name of model
+   * @param id ID of primary key
+   */
+  remove(modelName: string, id: number | string): Promise<object> {
 
-        return this.storage.remove(modelName, id);
-    }
+    return this.storage.remove(modelName, id);
+  }
 }

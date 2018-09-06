@@ -13,8 +13,8 @@ module.exports = function (config) {
       clearContext: false
     },
     coverageReporter: {
-      type : 'html',
-      dir : 'coverage/'
+      type: 'html',
+      dir: 'coverage/'
     },
     files: [
       'src/**/*.ts'
