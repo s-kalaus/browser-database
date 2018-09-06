@@ -7,6 +7,11 @@ import {LocalStorage} from './index';
 export class BrowserDatabase {
 
   /*
+   * Database change subscriptions
+   */
+  subscriptions: Function[] = [];
+
+  /*
    * Storage types
    */
   storages: {[key: string]: any} = {
@@ -59,7 +64,8 @@ export class BrowserDatabase {
    */
   insert(modelName: string, row: object): Promise<object> {
 
-    return this.storage.insert(modelName, row);
+    return this.storage.insert(modelName, row)
+      .then(theRow => this.notify(modelName, 'insert', theRow));
   }
 
   /*
@@ -71,7 +77,8 @@ export class BrowserDatabase {
    */
   update(modelName: string, id: number | string, row: object): Promise<object> {
 
-    return this.storage.update(modelName, id, row);
+    return this.storage.update(modelName, id, row)
+      .then(theRow => this.notify(modelName, 'update', theRow));
   }
 
   /*
@@ -82,6 +89,33 @@ export class BrowserDatabase {
    */
   remove(modelName: string, id: number | string): Promise<object> {
 
-    return this.storage.remove(modelName, id);
+    return this.storage.remove(modelName, id)
+      .then(theRow => this.notify(modelName, 'remove', theRow));
+  }
+
+  /*
+   * Notify subscribers about event
+   *
+   * @param modelName Name of model
+   * @param action Action name
+   * @param result Result row
+   */
+  notify(modelName: string, action: string, result: object): object {
+
+    this.subscriptions.forEach(subscription => subscription(modelName, action, result));
+
+    return result;
+  }
+
+  /*
+   * Add subscription
+   *
+   * @param callback Subscription callback
+   */
+  subscribe(callback: Function): Function {
+
+    this.subscriptions.push(callback);
+
+    return () => this.subscriptions = this.subscriptions.filter(subscription => subscription !== callback);
   }
 }
