@@ -68,6 +68,12 @@ describe('Storage', () => {
       expect(inst.ensureModel).toHaveBeenCalledWith('test');
     });
 
+    it('should return proper data (id set)', () => {
+      inst.insert('test', {id: 'id', field: 'value'}).then((data: any) => {
+        expect(data).toEqual({id: 'id', field: 'value'});
+      });
+    });
+
     it('should return proper data', () => {
       inst.insert('test', {field: 'value'}).then((data: any) => {
         expect(data).toEqual({id: jasmine.any(String), field: 'value'});

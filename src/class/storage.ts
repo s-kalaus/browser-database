@@ -74,7 +74,7 @@ export class Storage implements IStorage {
 
     this.ensureModel(modelName);
 
-    const id = uuid.v4();
+    const id = (row as any).id || uuid.v4();
 
     this.data[modelName][id] = row;
 
