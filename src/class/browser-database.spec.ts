@@ -135,6 +135,7 @@ describe('BrowserDatabase', () => {
     });
 
     it('should unsubscribe', () => {
+      inst.subscriptions = [];
       inst.subscribe(() => jasmine.createSpy('callback'))();
       expect(inst.subscriptions).toEqual([]);
     });

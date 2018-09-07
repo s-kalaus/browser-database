@@ -7,6 +7,11 @@ import {LocalStorage} from './index';
 export class BrowserDatabase {
 
   /*
+   * Existing instance for singleton
+   */
+  static instance: any = null;
+
+  /*
    * Database change subscriptions
    */
   subscriptions: any[] = [];
@@ -21,7 +26,7 @@ export class BrowserDatabase {
   /*
    * Storage reference
    */
-  storage: IStorage;
+  storage: IStorage | null = null;
 
   /*
    * Constructor
@@ -30,9 +35,15 @@ export class BrowserDatabase {
    */
   constructor(options: IBrowserDatabaseOptions = {}) {
 
+    if (BrowserDatabase.instance) {
+      return BrowserDatabase.instance;
+    }
+
     this.storage = new this.storages[options.storageType || 'localStorage']({
       storageKey: options.storageKey || 'browser-database'
     });
+
+    BrowserDatabase.instance = this;
   }
 
   /*
@@ -42,7 +53,7 @@ export class BrowserDatabase {
    */
   getAll(modelName: string): Promise<object> {
 
-    return this.storage.getAll(modelName);
+    return (<IStorage>this.storage).getAll(modelName);
   }
 
   /*
@@ -53,7 +64,7 @@ export class BrowserDatabase {
    */
   getById(modelName: string, id: number | string): Promise<object> {
 
-    return this.storage.getById(modelName, id);
+    return (<IStorage>this.storage).getById(modelName, id);
   }
 
   /*
@@ -64,7 +75,7 @@ export class BrowserDatabase {
    */
   insert(modelName: string, row: object): Promise<object> {
 
-    return this.storage.insert(modelName, row)
+    return (<IStorage>this.storage).insert(modelName, row)
       .then((theRow) => this.notify(modelName, 'insert', theRow));
   }
 
@@ -77,7 +88,7 @@ export class BrowserDatabase {
    */
   update(modelName: string, id: number | string, row: object): Promise<object> {
 
-    return this.storage.update(modelName, id, row)
+    return (<IStorage>this.storage).update(modelName, id, row)
       .then((theRow) => this.notify(modelName, 'update', theRow));
   }
 
@@ -89,7 +100,7 @@ export class BrowserDatabase {
    */
   remove(modelName: string, id: number | string): Promise<object> {
 
-    return this.storage.remove(modelName, id)
+    return (<IStorage>this.storage).remove(modelName, id)
       .then((theRow) => this.notify(modelName, 'remove', theRow));
   }
 
