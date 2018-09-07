@@ -1,7 +1,7 @@
 {
   "name": "browser-database",
   "version": "1.0.0",
-  "description": "Simple client-side database operating with sessionStorage/localStorage",
+  "description": "Simple client-side database based on localStorage",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "scripts": {
@@ -23,32 +23,36 @@
     "localStorage",
     "sessionStorage"
   ],
-  "author": "Sergey Kalaus",
+  "author": {
+    "name": "Sergey Kalaus",
+    "email": "sergey@kalaus.ru",
+    "url": "http://kalaus.ru"
+  },
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/s-kalaus/browser-database/issues"
   },
   "homepage": "https://github.com/s-kalaus/browser-database#readme",
   "devDependencies": {
-    "@types/jasmine": "latest",
-    "@types/uuid": "latest",
-    "ts-node": "latest",
-    "ts-loader": "latest",
-    "webpack": "latest",
-    "webpack-cli": "latest",
-    "rimraf": "latest",
+    "@types/jasmine": "^2.8.8",
+    "@types/uuid": "^3.4.4",
+    "ts-node": "^7.0.1",
+    "ts-loader": "^5.0.0",
+    "webpack": "^4.17.2",
+    "webpack-cli": "^3.1.0",
+    "rimraf": "^2.6.2",
     "typescript": "^3.0.3",
     "tslint": "^5.11.0",
     "uuid": "^3.3.2",
     "jasmine-core": "~2.99.1",
     "jasmine-marbles": "^0.3.1",
     "karma": "~1.7.1",
-    "karma-cli": "latest",
+    "karma-cli": "^1.0.1",
     "karma-chrome-launcher": "~2.2.0",
     "karma-jasmine": "~1.1.1",
-    "karma-typescript": "latest",
-    "karma-spec-reporter": "latest",
-    "karma-coverage": "latest",
-    "typedoc": "latest"
+    "karma-typescript": "^3.0.13",
+    "karma-spec-reporter": "^0.0.32",
+    "karma-coverage": "^1.1.2",
+    "typedoc": "^0.12.0"
   }
 }
