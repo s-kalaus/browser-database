@@ -76,6 +76,8 @@ export class Storage implements IStorage {
 
     const id = (row as any).id || uuid.v4();
 
+    delete (row as any).id;
+
     this.data[modelName][id] = row;
 
     return this.save()
