@@ -130,12 +130,12 @@ describe('BrowserDatabase', () => {
     });
 
     it('should add subscription', () => {
-      inst.subscribe(() => {});
+      inst.subscribe(() => jasmine.createSpy('callback'));
       expect(inst.subscriptions).toEqual([jasmine.any(Function)]);
     });
 
     it('should unsubscribe', () => {
-      inst.subscribe(() => {})();
+      inst.subscribe(() => jasmine.createSpy('callback'))();
       expect(inst.subscriptions).toEqual([]);
     });
   });

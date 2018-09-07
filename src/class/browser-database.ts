@@ -9,7 +9,7 @@ export class BrowserDatabase {
   /*
    * Database change subscriptions
    */
-  subscriptions: Function[] = [];
+  subscriptions: any[] = [];
 
   /*
    * Storage types
@@ -65,7 +65,7 @@ export class BrowserDatabase {
   insert(modelName: string, row: object): Promise<object> {
 
     return this.storage.insert(modelName, row)
-      .then(theRow => this.notify(modelName, 'insert', theRow));
+      .then((theRow) => this.notify(modelName, 'insert', theRow));
   }
 
   /*
@@ -78,7 +78,7 @@ export class BrowserDatabase {
   update(modelName: string, id: number | string, row: object): Promise<object> {
 
     return this.storage.update(modelName, id, row)
-      .then(theRow => this.notify(modelName, 'update', theRow));
+      .then((theRow) => this.notify(modelName, 'update', theRow));
   }
 
   /*
@@ -90,7 +90,7 @@ export class BrowserDatabase {
   remove(modelName: string, id: number | string): Promise<object> {
 
     return this.storage.remove(modelName, id)
-      .then(theRow => this.notify(modelName, 'remove', theRow));
+      .then((theRow) => this.notify(modelName, 'remove', theRow));
   }
 
   /*
@@ -102,7 +102,7 @@ export class BrowserDatabase {
    */
   notify(modelName: string, action: string, result: object): object {
 
-    this.subscriptions.forEach(subscription => subscription(modelName, action, result));
+    this.subscriptions.forEach((subscription) => subscription(modelName, action, result));
 
     return result;
   }
@@ -112,10 +112,10 @@ export class BrowserDatabase {
    *
    * @param callback Subscription callback
    */
-  subscribe(callback: Function): Function {
+  subscribe(callback: any): any {
 
     this.subscriptions.push(callback);
 
-    return () => this.subscriptions = this.subscriptions.filter(subscription => subscription !== callback);
+    return () => this.subscriptions = this.subscriptions.filter((subscription) => subscription !== callback);
   }
 }

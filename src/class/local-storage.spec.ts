@@ -33,7 +33,7 @@ describe('LocalStorage', () => {
     });
 
     it('should return error', () => {
-      spyOn(window.localStorage, 'setItem').and.callFake(() => {throw new Error();});
+      spyOn(window.localStorage, 'setItem').and.callFake(() => { throw new Error(); });
       inst.save().then((err: any) => {
         expect(err).toEqual(new Error('Error saving to localStorage'));
       });
@@ -59,7 +59,7 @@ describe('LocalStorage', () => {
     });
 
     it('should return error', () => {
-      spyOn(window.localStorage, 'getItem').and.callFake(() => {throw new Error();});
+      spyOn(window.localStorage, 'getItem').and.callFake(() => { throw new Error(); });
       inst.load().then((err: any) => {
         expect(err).toEqual(new Error('Error reading from localStorage'));
       });

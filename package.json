@@ -11,8 +11,7 @@
     "lint": "./node_modules/.bin/tslint src/**/*.ts",
     "test": "./node_modules/.bin/karma start",
     "coverage": "./node_modules/.bin/karma start --code-coverage --reporters coverage",
-    "doc": "./node_modules/.bin/typedoc --out documentation/ src/",
-    "publish": "npm run lint && npm run test && npm run build"
+    "doc": "./node_modules/.bin/typedoc --out documentation/ src/"
   },
   "repository": {
     "type": "git",
