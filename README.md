@@ -2,6 +2,8 @@
 
 Simple client-side database based on localStorage
 
+[![travis ci](https://travis-ci.org/s-kalaus/browser-database.svg?branch=master)](https://travis-ci.org/s-kalaus/browser-database) [![npm version](https://badge.fury.io/js/browser-database.svg)](https://badge.fury.io/js/browser-database)
+
 ## Installation
 `npm install browser-database` - install package
 
