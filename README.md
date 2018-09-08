@@ -8,6 +8,8 @@ Simple client-side database based on localStorage. It creates in localStorage do
 
 [Documentation](https://s-kalaus.github.io/browser-database/documentation/index.html)
 
+[Demo](https://s-kalaus.github.io/browser-database/demo/index.html) (Add only)
+
 ## Installation
 `npm install browser-database` - install package
 
