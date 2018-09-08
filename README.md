@@ -1,6 +1,6 @@
 # browser-database
 
-Simple client-side database based on localStorage
+Simple client-side database based on localStorage. It creates in localStorage document-oriented database and provides basic data fetch/update methods.
 
 [![travis ci](https://travis-ci.org/s-kalaus/browser-database.svg?branch=master)](https://travis-ci.org/s-kalaus/browser-database) [![npm version](https://badge.fury.io/js/browser-database.svg)](https://badge.fury.io/js/browser-database)
 
@@ -33,23 +33,23 @@ browserDatabase.insert('modelName', {field: 'value'})
     .catch(err => console.error(err));
 ```
 ## BrowserDatabase options
-`storageType: string` - type of storage to use: `localStorage`
-`storageKey: string` - database name
+* `storageType: string` - type of storage to use: `localStorage`
+* `storageKey: string` - database name
 ## Methods
-`insert(table: string, row: object)` - add new record
-`update(table: string, id: number, row: object)` - update record for specific id
-`remove(table: string, id: number)` - remove record
-`getAll(table: string)` - get all records
-`getById(table: string, id: number)` - get record by id
-`subscribe(callback: Function)` - subscribe to datbase updates. Callback will be called with 3 parameters:
+* `insert(table: string, row: object)` - add new record
+* `update(table: string, id: number, row: object)` - update record for specific id
+* `remove(table: string, id: number)` - remove record
+* `getAll(table: string)` - get all records
+* `getById(table: string, id: number)` - get record by id
+* `subscribe(callback: Function)` - subscribe to datbase updates. Callback will be called with 3 parameters:
 * `table` - name of table
 * `action` - performed action: `insert`, `update`, `remove`
 * `result` - result of action (new/updated/removed row data)
 ## Development
-`npm run clear` - clear `/dist` folder
-`npm run build` - build production version
-`npm run watch` - run watcher & build in development mode
-`npm run lint` - run linter
-`npm run test` - run karma unit tests
-`npm run coverage` - run karma unit tests & generate coverage report to `/coverage` folder
-`npm run doc` - gerenate documentation to `/documentation` folder
+* `npm run clear` - clear `/dist` folder
+* `npm run build` - build production version
+* `npm run watch` - run watcher & build in development mode
+* `npm run lint` - run linter
+* `npm run test` - run karma unit tests
+* `npm run coverage` - run karma unit tests & generate coverage report to `/coverage` folder
+* `npm run doc` - gerenate documentation to `/documentation` folder
