@@ -1,2 +1,5 @@
 /node_modules
-/dist
+/dist/class
+/dist/interface
+/dist/*.d.ts
+/dist/index.js
