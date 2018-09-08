@@ -6,6 +6,8 @@ Simple client-side database based on localStorage. It creates in localStorage do
 
 [Coverage Report](https://s-kalaus.github.io/browser-database/coverage/class/index.html)
 
+[Documentation](https://s-kalaus.github.io/browser-database/documentation/index.html)
+
 ## Installation
 `npm install browser-database` - install package
 

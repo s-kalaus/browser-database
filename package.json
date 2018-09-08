@@ -19,8 +19,7 @@
   },
   "keywords": [
     "database",
-    "localStorage",
-    "sessionStorage"
+    "localStorage"
   ],
   "author": {
     "name": "Sergey Kalaus",
